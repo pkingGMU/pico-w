@@ -1,0 +1,4 @@
+.venv/*
+.vscode/*
+pico_scripts/env.txt
+pico-w.tar
