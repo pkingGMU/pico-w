@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message and Image Upload</title>
+</head>
+<body>
+    <h1>Send a Message</h1>
+    <form action="/submit_message" method="post">
+        <textarea name="message" placeholder="Type your message here..." rows="4" cols="50"></textarea><br>
+        <button type="submit">Submit Message</button>
+    </form>
+
+    <h2>Upload an Image</h2>
+    <form action="/upload_image" method="post" enctype="multipart/form-data">
+        <input type="file" name="image"><br>
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <h3>Messages:</h3>
+    <ul>
+        {% for msg in messages %}
+            <li>{{ msg }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
