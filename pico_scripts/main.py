@@ -143,9 +143,7 @@ while True:
     # Handle the error if the image doesn't exist on the flash.
     except OSError:
         print("Error: PNG File missing. Copy the PNG file from the example folder to your Pico using Thonny and run the example again.")
-
+    time.sleep(10)  # Wait before the next request
     display.update()
 
-    # We're not doing anything else with the display now but we want to keep the program running!
-    while True:
-        pass
+    
