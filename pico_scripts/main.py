@@ -92,36 +92,36 @@ latest_message = ' '
 
 
 while True:
+
+    
+
+    
+
+    
     try:
-        response = urequests.get(url, headers=headers)
+        
+        response = requests.get(url, auth=(auth_username, auth_password))
         latest_message = response.text
         print(f'Latest message: {latest_message}')
+    
+
+        # Update display only if the message changes
+        if latest_message != last_message:
+            last_message = latest_message
+            display.set_pen(BG)
+            display.clear()
+            display.set_pen(TEXT)
+            display.text(latest_message, 10, 10, 115, 2)
+            display.update()
+            print(f'Updated message: {latest_message}')
+
     except Exception as e:
         print(f'Error: {e}')
+
+    # Debug memory usage
+    gc.collect()  # Force garbage collection
+    print(f"Free memory: {gc.mem_free()} bytes")
     
-    time.sleep(10)  # Check every 10 seconds
-
-    
-
-    # Create a PicoGraphics instance
-    display = PicoGraphics(display=DISPLAY_PICO_DISPLAY, pen_type=PEN_RGB332)
-
-    # Set the backlight so we can see it!
-    display.set_backlight(.8)
-
-    # Create an instance of the PNG Decoder
-    png = pngdec.PNG(display)
-
-    # Create some pens for use later.
-    BG = display.create_pen(200, 200, 200)
-    TEXT = display.create_pen(0, 0, 0)
-
-    # Clear the screen
-    display.set_pen(BG)
-    display.clear()
-
-    display.set_pen(TEXT)
-    display.text(latest_message, 10, 10)
 
     try:
         # Open our PNG File from flash. In this example we're using an image of a cartoon pencil.
