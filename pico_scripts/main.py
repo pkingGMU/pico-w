@@ -67,17 +67,29 @@ except KeyboardInterrupt:
 print('Connected to Wi-Fi')
 
 # Flask app URL
-url = 'http://pico.artoria.ooguy.com/get_latest_message'
+url = 'http://pico.artoria.ooguy.com/get_latest_message' 
+
+# Create a PicoGraphics instance
+display = PicoGraphics(display=DISPLAY_PICO_DISPLAY, pen_type=PEN_RGB332)
+
+# Set the backlight so we can see it!
+display.set_backlight(.8)
+
+# Create some pens for use later.
+BG = display.create_pen(200, 200, 200)
+TEXT = display.create_pen(0, 0, 0)
+
+# Clear the screen initially
+display.set_pen(BG)
+display.clear()
+display.update()
+
+# Create an instance of the PNG Decoder
+png = pngdec.PNG(display)
 
 
+latest_message = ' '
 
-auth_string = auth_username + ':' + auth_password
-auth_base64 = ubinascii.b2a_base64(auth_string.encode('utf-8')).decode('utf-8').strip()
-
-# Create the headers with the Authorization header
-headers = {
-    'Authorization': 'Basic ' + auth_base64
-}
 
 while True:
     try:
