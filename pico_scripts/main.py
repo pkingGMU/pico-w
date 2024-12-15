@@ -1,12 +1,13 @@
+from time import sleep
 import time
 import network
 import urequests
-from time import sleep
 import machine
 import sys
+import gc
 from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY, PEN_RGB332
 import pngdec
-import ubinascii  # Used for base64 encoding
+import mrequests as requests
 
 ##################### dotenv parsing ##########################
 
