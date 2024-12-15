@@ -4,6 +4,9 @@ import urequests
 from time import sleep
 import machine
 import sys
+from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY, PEN_RGB332
+import pngdec
+import ubinascii  # Used for base64 encoding
 
 ##################### dotenv parsing ##########################
 
@@ -36,9 +39,9 @@ creds = load_dotenv()
 ssid = creds.get("SSID")
 password = creds.get("PASSWORD")
 
+auth_username = creds.get("auth_username")
+auth_password = creds.get("auth_password")
 
-# Flask app URL
-url = 'http://pico.artoria.ooguy.com:5000/get_latest_message'
 
 # Global variables
 last_message = "No messages yet."
