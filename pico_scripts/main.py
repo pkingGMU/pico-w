@@ -64,11 +64,21 @@ except KeyboardInterrupt:
 print('Connected to Wi-Fi')
 
 # Flask app URL
-url = 'http://pico.artoria.ooguy.com:5000/get_latest_message'
+url = 'http://pico.artoria.ooguy.com/get_latest_message'
+
+
+
+auth_string = auth_username + ':' + auth_password
+auth_base64 = ubinascii.b2a_base64(auth_string.encode('utf-8')).decode('utf-8').strip()
+
+# Create the headers with the Authorization header
+headers = {
+    'Authorization': 'Basic ' + auth_base64
+}
 
 while True:
     try:
-        response = urequests.get(url)
+        response = urequests.get(url, headers=headers)
         latest_message = response.text
         print(f'Latest message: {latest_message}')
     except Exception as e:
