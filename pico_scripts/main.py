@@ -75,3 +75,52 @@ while True:
         print(f'Error: {e}')
     
     time.sleep(10)  # Check every 10 seconds
+
+    
+
+    # Create a PicoGraphics instance
+    display = PicoGraphics(display=DISPLAY_PICO_DISPLAY, pen_type=PEN_RGB332)
+
+    # Set the backlight so we can see it!
+    display.set_backlight(.8)
+
+    # Create an instance of the PNG Decoder
+    png = pngdec.PNG(display)
+
+    # Create some pens for use later.
+    BG = display.create_pen(200, 200, 200)
+    TEXT = display.create_pen(0, 0, 0)
+
+    # Clear the screen
+    display.set_pen(BG)
+    display.clear()
+
+    display.set_pen(TEXT)
+    display.text(latest_message, 10, 10)
+
+    try:
+        # Open our PNG File from flash. In this example we're using an image of a cartoon pencil.
+        # You can use Thonny to transfer PNG Images to your Pico.
+        png.open_file("carc.png")
+
+        # Get the image dimensions (you need to know the size of your image)
+        width, height = 140, 140
+
+        # Calculate the position to center the image
+        x_position = (135 - width) // 2  # Centered X
+        y_position = ((240 - height) // 2) + 50  # Centered Y
+
+        
+
+        # Decode our PNG file and set the X and Y
+        png.decode(x_position, y_position, scale=1)
+
+    # Handle the error if the image doesn't exist on the flash.
+    except OSError:
+        print("Error: PNG File missing. Copy the PNG file from the example folder to your Pico using Thonny and run the example again.")
+
+    display.update()
+
+    # We're not doing anything else with the display now but we want to keep the program running!
+    while True:
+        pass
